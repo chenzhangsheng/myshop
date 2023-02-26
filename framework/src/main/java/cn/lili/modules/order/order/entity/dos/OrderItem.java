@@ -140,7 +140,8 @@ public class OrderItem extends BaseEntity {
         ));
         this.setGoodsPrice(cartSkuVO.getGoodsSku().getPrice());
         this.setUnitPrice(cartSkuVO.getPurchasePrice());
-        this.setSubTotal(cartSkuVO.getSubTotal());
+        // 按照商品个数生成子订单
+        this.setSubTotal(cartSkuVO.getPurchasePrice());
         this.setSn(SnowFlake.createStr("OI"));
 
 

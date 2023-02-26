@@ -22,6 +22,7 @@ import cn.lili.modules.connect.request.BaseAuthQQRequest;
 import cn.lili.modules.connect.request.BaseAuthWeChatPCRequest;
 import cn.lili.modules.connect.request.BaseAuthWeChatRequest;
 import cn.lili.modules.connect.service.ConnectService;
+import cn.lili.modules.member.service.MemberService;
 import cn.lili.modules.system.entity.dos.Setting;
 import cn.lili.modules.system.entity.dto.connect.QQConnectSetting;
 import cn.lili.modules.system.entity.dto.connect.WechatConnectSetting;
@@ -60,7 +61,8 @@ public class ConnectUtil {
     private ApiProperties apiProperties;
     @Autowired
     private DomainProperties domainProperties;
-
+    @Autowired
+    private MemberService memberService;
 
     static String prefix = "/buyer/passport/connect/connect/callback/";
 
@@ -101,19 +103,30 @@ public class ConnectUtil {
         else {
             throw new ServiceException(ResultCode.ERROR, response.getMsg());
         }
-        //缓存写入登录结果，300秒有效
-        cache.put(CachePrefix.CONNECT_RESULT.getPrefix() + callback.getCode(), resultMessage, 300L);
 
-        //跳转地址
-        String url = this.check(httpServletRequest.getHeader("user-agent")) ?
-                domainProperties.getWap() + "/pages/passport/login?state=" + callback.getCode() :
-                domainProperties.getPc() + "/login?state=" + callback.getCode();
+        this.RedirectAndSetInCache(callback.getCode(),resultMessage,httpServletRequest,httpServletResponse);
+    }
 
+
+    /**
+     * 登录回调
+     *
+     * @param uuid user uuid
+     * @param httpServletResponse
+     * @param httpServletRequest
+     * @throws IOException
+     */
+    public void walletCallback(String uuid,HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        Token token;
+        ResultMessage<Object> resultMessage;
         try {
-            httpServletResponse.sendRedirect(url);
-        } catch (Exception e) {
-            log.error("登录回调错误",e);
+            ConnectAuthUser walletAuthUser = ConnectAuthUser.builder().uuid(uuid).build();
+            token = connectService.unionLoginCallback(ConnectAuthEnum.WALLET.getName(), walletAuthUser, uuid);
+            resultMessage = ResultUtil.data(token);
+        } catch (ServiceException e) {
+            throw new ServiceException(ResultCode.ERROR, e.getMessage());
         }
+        this.RedirectAndSetInCache(uuid,resultMessage,httpServletRequest,httpServletResponse);
     }
 
     /**
@@ -243,5 +256,21 @@ public class ConnectUtil {
             return false;
         }
     }
+
+    private void RedirectAndSetInCache(String callbackCode,ResultMessage<Object> resultMessage,HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+
+        //缓存写入登录结果，300秒有效
+        cache.put(CachePrefix.CONNECT_RESULT.getPrefix() + callbackCode, resultMessage, 300L);
+        //跳转地址
+        String url = this.check(httpServletRequest.getHeader("user-agent")) ?
+                domainProperties.getWap() + "/pages/passport/login?state=" + callbackCode :
+                domainProperties.getPc() + "/login?state=" + callbackCode;
+        try {
+            httpServletResponse.sendRedirect(url);
+        } catch (Exception e) {
+            log.error("登录回调错误",e);
+        }
+    }
+
 }
 

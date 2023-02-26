@@ -112,6 +112,27 @@ public enum ConnectAuthEnum implements ConnectAuth {
             return "https://api.weibo.com/2/users/show.json";
         }
 
+    },
+
+    /***
+     * 区块链钱包
+     */
+    WALLET {
+        @Override
+        public String authorize() {
+            return "https://xxx.xxx.xxx/oauth2/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://xxx.xx.xxx/oauth2/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://xx.xx.xxx/users/show.json";
+        }
+
     }
 
 }

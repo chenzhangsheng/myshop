@@ -24,7 +24,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://192.168.0.116:8000
+        url: http://127.0.0.1:8000
   cache:
     type: redis
   # Redis
@@ -318,3 +318,4 @@ xxl:
       port: 8891
       logpath: ./xxl-job/executor
       logretentiondays: 7
+

@@ -181,8 +181,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             orderLogs.add(new OrderLog(item.getSn(), UserContext.getCurrentUser().getId(), UserContext.getCurrentUser().getRole().getRole(), UserContext.getCurrentUser().getUsername(), message));
             item.getCheckedSkuList().forEach(
                     sku -> {
-                        orderItems.add(new OrderItem(sku, item, tradeDTO));
-                        currentOrderItems.add(new OrderItem(sku, item, tradeDTO));
+                        // 按照商品个数生成子订单
+                        int i = 0;
+                        while (i < sku.getNum()) {
+                            orderItems.add(new OrderItem(sku, item, tradeDTO));
+                            currentOrderItems.add(new OrderItem(sku, item, tradeDTO));
+                            i++;
+                        }
                     }
             );
             //写入子订单信息

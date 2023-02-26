@@ -215,7 +215,7 @@ lili:
     sk: zhNKVrJK6UPOhqIjn8AQvG37b9sz6
   #域名
   domain:
-    pc: https://pc-b2b2c.pickmall.cn
+    pc: http://127.0.0.1:10000
     wap: https://m-b2b2c.pickmall.cn
     store: https://store-b2b2c.pickmall.cn
     admin: https://admin-b2b2c.pickmall.cn

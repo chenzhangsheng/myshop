@@ -66,6 +66,12 @@ public class ConnectBuyerWebController {
         connectUtil.callback(type, callback, httpServletRequest, httpServletResponse);
     }
 
+    @ApiOperation(value = "钱包登录回调地址", hidden = true)
+    @GetMapping("/callback/wallet/{uuid}")
+    public void walletCallBack(@PathVariable String uuid, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        connectUtil.walletCallback(uuid, httpServletRequest, httpServletResponse);
+    }
+
     @ApiOperation(value = "信任登录响应结果获取")
     @GetMapping("/result")
     public ResultMessage<Object> callBackResult(String state) {
