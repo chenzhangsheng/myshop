@@ -28,7 +28,7 @@
             <totalSizeCap>30MB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-22c{0} %X{ServiceId} - %m%n</pattern>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] [%X{trackingId}] %msg%n</pattern>
         </encoder>
     </appender>
     <logger name="RocketmqClient" additivity="false">

@@ -119,7 +119,7 @@ public class OrderItem extends BaseEntity {
     public OrderItem(CartSkuVO cartSkuVO, CartVO cartVO, TradeDTO tradeDTO) {
         String oldId = this.getId();
         BeanUtil.copyProperties(cartSkuVO.getGoodsSku(), this);
-        BeanUtil.copyProperties(cartSkuVO.getPriceDetailDTO(), this);
+        BeanUtil.copyProperties(getItemPriceDetailDTO(cartSkuVO), this);
         BeanUtil.copyProperties(cartSkuVO, this);
         this.setId(oldId);
         if (cartSkuVO.getPriceDetailDTO().getJoinPromotion() != null && !cartSkuVO.getPriceDetailDTO().getJoinPromotion().isEmpty()) {
@@ -142,9 +142,8 @@ public class OrderItem extends BaseEntity {
         this.setUnitPrice(cartSkuVO.getPurchasePrice());
         // 按照商品个数生成子订单
         this.setSubTotal(cartSkuVO.getPurchasePrice());
+        this.setNum(1);
         this.setSn(SnowFlake.createStr("OI"));
-
-
     }
 
     public PriceDetailDTO getPriceDetailDTO() {
@@ -153,6 +152,26 @@ public class OrderItem extends BaseEntity {
 
     public void setPriceDetailDTO(PriceDetailDTO priceDetail) {
         this.priceDetail = JSONUtil.toJsonStr(priceDetail);
+    }
+
+    /**
+     *  获取单个商品的价格明细
+     * @return
+     */
+    private PriceDetailDTO getItemPriceDetailDTO(CartSkuVO cartSkuVO) {
+        int number = cartSkuVO.getNum();
+        if (number > 1) {
+            PriceDetailDTO itemPriceDetail = cartSkuVO.getPriceDetailDTO();
+            itemPriceDetail.setOriginalPrice(itemPriceDetail.getOriginalPrice() / number);
+            itemPriceDetail.setGoodsPrice(itemPriceDetail.getGoodsPrice() / number);
+            itemPriceDetail.setFreightPrice(itemPriceDetail.getFreightPrice() / number);
+            itemPriceDetail.setPlatFormCommission(itemPriceDetail.getPlatFormCommission() / number);
+            itemPriceDetail.setUpdatePrice(itemPriceDetail.getUpdatePrice() / number);
+            itemPriceDetail.setFlowPrice(itemPriceDetail.getFlowPrice() / number);
+            itemPriceDetail.setBillPrice(itemPriceDetail.getBillPrice() / number);
+            return itemPriceDetail;
+        }
+        return cartSkuVO.getPriceDetailDTO();
     }
 
 }

@@ -46,6 +46,24 @@ public class OssSetting implements Serializable {
 
 
     /**
+     * google云 OSS项目id
+     */
+    private String googleOSSProjectId = "";
+
+    /**
+     * google云 存储空间
+     */
+    private String googleOSSBucketName = "";
+
+
+    /**
+     * google云 私钥
+     */
+    private String googleOSSPrivateKey = "";
+
+
+
+    /**
      * minio服务地址
      */
     private String m_endpoint;
