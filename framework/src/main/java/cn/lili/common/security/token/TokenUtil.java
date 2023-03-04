@@ -8,6 +8,7 @@ import cn.lili.common.properties.JWTTokenProperties;
 import cn.lili.common.security.AuthUser;
 import cn.lili.common.security.enums.SecurityEnum;
 import cn.lili.common.security.enums.UserEnums;
+import cn.lili.modules.wallet.entity.dto.WalletLoginDTO;
 import com.google.gson.Gson;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
@@ -53,6 +54,15 @@ public class TokenUtil {
         token.setAccessToken(accessToken);
         token.setRefreshToken(refreshToken);
         return token;
+    }
+
+    /**
+     * 检查钱包登录是否有效
+     *
+     * @return TOKEN
+     */
+    public void checkWalletLoginToken(WalletLoginDTO walletLoginDTO){
+
     }
 
     /**

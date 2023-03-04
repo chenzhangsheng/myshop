@@ -122,7 +122,6 @@ public class GoodsStoreController {
         return ResultUtil.success();
     }
 
-    @DemoSite
     @ApiOperation(value = "下架商品", notes = "下架商品时使用")
     @ApiImplicitParam(name = "goodsId", value = "商品ID", required = true, paramType = "query", allowMultiple = true)
     @PutMapping(value = "/under")
@@ -140,7 +139,6 @@ public class GoodsStoreController {
         return ResultUtil.success();
     }
 
-    @DemoSite
     @ApiOperation(value = "删除商品")
     @PutMapping(value = "/delete")
     @ApiImplicitParam(name = "goodsId", value = "商品ID", required = true, paramType = "query", allowMultiple = true)

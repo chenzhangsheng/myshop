@@ -50,7 +50,6 @@ public class VerificationSourceController {
 
     @PostMapping
     @ApiOperation(value = "新增验证码资源维护")
-    @DemoSite
     public ResultMessage<VerificationSource> save(VerificationSource verificationSource) {
 
         verificationSourceService.save(verificationSource);
@@ -60,7 +59,6 @@ public class VerificationSourceController {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "更新验证码资源维护")
-    @DemoSite
     public ResultMessage<VerificationSource> update(@PathVariable String id, VerificationSource verificationSource) {
         verificationSource.setId(id);
         verificationSourceService.updateById(verificationSource);
@@ -70,7 +68,6 @@ public class VerificationSourceController {
 
     @DeleteMapping(value = "/{ids}")
     @ApiOperation(value = "删除验证码资源维护")
-    @DemoSite
     public ResultMessage<Object> delAllByIds(@PathVariable List ids) {
 
         verificationSourceService.removeByIds(ids);

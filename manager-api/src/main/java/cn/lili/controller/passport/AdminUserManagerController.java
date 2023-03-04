@@ -114,7 +114,6 @@ public class AdminUserManagerController {
 
     @PutMapping(value = "/admin/edit")
     @ApiOperation(value = "超级管理员修改其他管理员资料")
-    @DemoSite
     public ResultMessage<Object> edit(@Valid AdminUser adminUser,
                                       @RequestParam(required = false) List<String> roles) {
         if (!adminUserService.updateAdminUser(adminUser, roles)) {
@@ -132,7 +131,6 @@ public class AdminUserManagerController {
      */
     @PutMapping(value = "/editPassword")
     @ApiOperation(value = "修改密码")
-    @DemoSite
     public ResultMessage<Object> editPassword(String password, String newPassword) {
         adminUserService.editPassword(password, newPassword);
         return ResultUtil.success(ResultCode.USER_EDIT_SUCCESS);
@@ -140,7 +138,6 @@ public class AdminUserManagerController {
 
     @PostMapping(value = "/resetPassword/{ids}")
     @ApiOperation(value = "重置密码")
-    @DemoSite
     public ResultMessage<Object> resetPassword(@PathVariable List ids) {
         adminUserService.resetPassword(ids);
         return ResultUtil.success(ResultCode.USER_EDIT_SUCCESS);
@@ -175,7 +172,6 @@ public class AdminUserManagerController {
 
     @PutMapping(value = "/enable/{userId}")
     @ApiOperation(value = "禁/启 用 用户")
-    @DemoSite
     public ResultMessage<Object> disable(@ApiParam("用户唯一id标识") @PathVariable String userId, Boolean status) {
         AdminUser user = adminUserService.getById(userId);
         if (user == null) {
@@ -188,7 +184,6 @@ public class AdminUserManagerController {
 
     @DeleteMapping(value = "/{ids}")
     @ApiOperation(value = "批量通过ids删除")
-    @DemoSite
     public ResultMessage<Object> delAllByIds(@PathVariable List<String> ids) {
         adminUserService.deleteCompletely(ids);
         return ResultUtil.success();

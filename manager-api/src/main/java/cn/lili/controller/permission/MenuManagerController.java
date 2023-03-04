@@ -40,7 +40,6 @@ public class MenuManagerController {
 
     @ApiOperation(value = "添加")
     @PostMapping
-    @DemoSite
     public ResultMessage<Menu> add(Menu menu) {
         try {
             menuService.saveOrUpdateMenu(menu);
@@ -53,7 +52,6 @@ public class MenuManagerController {
     @ApiImplicitParam(name = "id", value = "菜单ID", required = true, paramType = "path", dataType = "String")
     @ApiOperation(value = "编辑")
     @PutMapping(value = "/{id}")
-    @DemoSite
     public ResultMessage<Menu> edit(@PathVariable String id, Menu menu) {
         menu.setId(id);
         menuService.saveOrUpdateMenu(menu);
@@ -62,7 +60,6 @@ public class MenuManagerController {
 
     @ApiOperation(value = "批量删除")
     @DeleteMapping(value = "/{ids}")
-    @DemoSite
     public ResultMessage<Menu> delByIds(@PathVariable List<String> ids) {
         menuService.deleteIds(ids);
         return ResultUtil.success();

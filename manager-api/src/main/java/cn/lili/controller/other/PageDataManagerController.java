@@ -50,7 +50,6 @@ public class PageDataManagerController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "页面ID", required = true, dataType = "String", paramType = "path")
     })
-    @DemoSite
     @PutMapping("/update/{id}")
     public ResultMessage<PageData> updatePageData(@Valid PageData pageData, @NotNull @PathVariable String id) {
         pageData.setId(id);
@@ -66,13 +65,11 @@ public class PageDataManagerController {
     @ApiOperation(value = "发布页面")
     @ApiImplicitParam(name = "id", value = "页面ID", required = true, dataType = "String", paramType = "path")
     @PutMapping("/release/{id}")
-    @DemoSite
     public ResultMessage<PageData> release(@PathVariable String id) {
         return ResultUtil.data(pageDataService.releasePageData(id));
     }
 
     @ApiOperation(value = "删除页面")
-    @DemoSite
     @ApiImplicitParam(name = "id", value = "页面ID", required = true, dataType = "String", paramType = "path")
     @DeleteMapping("/remove/{id}")
     public ResultMessage<Object> remove(@PathVariable String id) {

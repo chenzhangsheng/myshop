@@ -222,7 +222,6 @@ lili:
     #支付密码
     WALLET_PASSWORD: SMS_205755301
   system:
-    isDemoSite: false
     isTestModel: true
   #     脱敏级别：
   #     0：不做脱敏处理

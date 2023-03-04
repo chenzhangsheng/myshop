@@ -92,7 +92,6 @@ public class StoreManagerController {
     }
 
 
-    @DemoSite
     @ApiOperation(value = "关闭店铺")
     @ApiImplicitParam(name = "id", value = "店铺id", required = true, dataType = "String", paramType = "path")
     @PutMapping(value = "/disable/{id}")

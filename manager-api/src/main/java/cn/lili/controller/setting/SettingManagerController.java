@@ -44,7 +44,6 @@ public class SettingManagerController {
     private Cache<String> cache;
 
 
-    @DemoSite
     @ApiOperation(value = "更新配置")
     @PutMapping(value = "/put/{key}")
     @ApiImplicitParam(name = "key", value = "配置key", paramType = "path",
@@ -69,8 +68,7 @@ public class SettingManagerController {
         return ResultUtil.success();
     }
 
-
-    @DemoSite
+    
     @ApiOperation(value = "查看配置")
     @GetMapping(value = "/get/{key}")
     @ApiImplicitParam(name = "key", value = "配置key", paramType = "path"

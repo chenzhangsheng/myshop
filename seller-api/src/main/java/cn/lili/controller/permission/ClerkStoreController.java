@@ -133,7 +133,6 @@ public class ClerkStoreController {
 
     @PutMapping(value = "/enable/{clerkId}")
     @ApiOperation(value = "禁/启 用 店员")
-    @DemoSite
     public ResultMessage<Object> disable(@ApiParam("用户唯一id标识") @PathVariable String clerkId, Boolean status) {
         clerkService.disable(clerkId, status);
         return ResultUtil.success();
@@ -150,7 +149,6 @@ public class ClerkStoreController {
 
     @PostMapping(value = "/resetPassword/{ids}")
     @ApiOperation(value = "重置密码")
-    @DemoSite
     public ResultMessage<Object> resetPassword(@PathVariable List ids) {
         clerkService.resetPassword(ids);
         return ResultUtil.success(ResultCode.USER_EDIT_SUCCESS);

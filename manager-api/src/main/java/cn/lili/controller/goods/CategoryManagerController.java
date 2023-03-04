@@ -59,7 +59,6 @@ public class CategoryManagerController {
     }
 
     @PostMapping
-    @DemoSite
     @ApiOperation(value = "添加商品分类")
     public ResultMessage<Category> saveCategory(@Valid Category category) {
         //非顶级分类
@@ -79,7 +78,6 @@ public class CategoryManagerController {
     }
 
     @PutMapping
-    @DemoSite
     @ApiOperation(value = "修改商品分类")
     public ResultMessage<Category> updateCategory(@Valid CategoryVO category) {
         Category catTemp = categoryService.getById(category.getId());
@@ -92,7 +90,6 @@ public class CategoryManagerController {
     }
 
     @DeleteMapping(value = "/{id}")
-    @DemoSite
     @ApiImplicitParam(name = "id", value = "分类ID", required = true, paramType = "path", dataType = "String")
     @ApiOperation(value = "通过id删除分类")
     public ResultMessage<Category> delAllByIds(@NotNull @PathVariable String id) {
@@ -116,7 +113,6 @@ public class CategoryManagerController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "goodsId", value = "分类ID", required = true, paramType = "path", dataType = "String")
     })
-    @DemoSite
     @ApiOperation(value = "后台 禁用/启用 分类")
     public ResultMessage<Object> disable(@PathVariable String id, @RequestParam Boolean enableOperations) {
 

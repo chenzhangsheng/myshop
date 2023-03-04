@@ -109,14 +109,11 @@ public class ConnectUtil {
 
 
     /**
-     * 登录回调
-     *
+     * 用户登录获取token
      * @param uuid user uuid
-     * @param httpServletResponse
-     * @param httpServletRequest
      * @throws IOException
      */
-    public void walletCallback(String uuid,HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+    public ResultMessage<Object> walletLogin(String uuid) throws IOException {
         Token token;
         ResultMessage<Object> resultMessage;
         try {
@@ -126,7 +123,7 @@ public class ConnectUtil {
         } catch (ServiceException e) {
             throw new ServiceException(ResultCode.ERROR, e.getMessage());
         }
-        this.RedirectAndSetInCache(uuid,resultMessage,httpServletRequest,httpServletResponse);
+        return resultMessage;
     }
 
     /**

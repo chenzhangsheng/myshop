@@ -57,7 +57,6 @@ public class MemberManagerController {
         return ResultUtil.data(memberService.addMember(member));
     }
 
-    @DemoSite
     @PreventDuplicateSubmissions
     @ApiOperation(value = "修改会员基本信息")
     @PutMapping
@@ -65,7 +64,6 @@ public class MemberManagerController {
         return ResultUtil.data(memberService.updateMember(managerMemberEditDTO));
     }
 
-    @DemoSite
     @PreventDuplicateSubmissions
     @ApiOperation(value = "修改会员状态,开启关闭会员")
     @ApiImplicitParams({

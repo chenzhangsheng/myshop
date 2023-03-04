@@ -72,7 +72,6 @@ public class GoodsManagerController {
             @ApiImplicitParam(name = "goodsId", value = "商品ID", required = true, paramType = "query", allowMultiple = true),
             @ApiImplicitParam(name = "reason", value = "下架理由", required = true, paramType = "query")
     })
-    @DemoSite
     @PutMapping(value = "/{goodsId}/under")
     public ResultMessage<Object> underGoods(@PathVariable String goodsId, @NotEmpty(message = "下架原因不能为空") @RequestParam String reason) {
         List<String> goodsIds = Arrays.asList(goodsId.split(","));
