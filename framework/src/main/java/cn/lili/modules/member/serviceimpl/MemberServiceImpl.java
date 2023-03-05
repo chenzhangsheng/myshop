@@ -190,7 +190,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
         Member member = this.findMember(username);
         //判断用户是否存在
-        if (member == null || member.getDisabled()) {
+        if (member == null || !member.getDisabled()) {
             throw new ServiceException(ResultCode.USER_NOT_EXIST);
         }
         //判断密码是否输入正确
