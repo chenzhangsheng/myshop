@@ -68,6 +68,12 @@ public class DistributionGoodsServiceImpl extends ServiceImpl<DistributionGoodsM
         return this.baseMapper.getDistributionGoodsVO(PageUtil.initPage(searchParams), searchParams.distributionQueryWrapper());
     }
 
+
+    @Override
+    public IPage<DistributionGoodsVO> selectGoodsPage(DistributionGoodsSearchParams searchParams) {
+        return this.baseMapper.selectGoods(PageUtil.initPage(searchParams), searchParams.distributionQueryWrapper(), searchParams.getDistributionId());
+    }
+
     /**
      * 根据条件查询分销商品信息列表
      *

@@ -91,6 +91,7 @@ public class GoodsSkuBuilder {
         goodsSku.setQuantity(Convert.toInt(skuInfo.get("quantity"), 0));
         goodsSku.setSpecs(JSONUtil.toJsonStr(specMap));
         goodsSku.setSimpleSpecs(simpleSpecs.toString());
+        goodsSku.setDigitalCurrency(goodsSku.getPrice()- goodsSku.getCost());
     }
 
 

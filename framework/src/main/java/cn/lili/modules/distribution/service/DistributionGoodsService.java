@@ -27,6 +27,14 @@ public interface DistributionGoodsService extends IService<DistributionGoods> {
 
 
     /**
+     * 根据条件查询已选分销商品信息
+     * @param distributionGoodsSearchParams 商品条件
+     * @return 分页分销商品信息
+     */
+
+    IPage<DistributionGoodsVO> selectGoodsPage(DistributionGoodsSearchParams distributionGoodsSearchParams);
+
+    /**
      * 根据条件查询分销商品信息列表
      *
      * @param distributionGoodsSearchParams 条件

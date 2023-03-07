@@ -29,6 +29,9 @@ public class DistributionGoodsSearchParams extends PageVO {
     @ApiModelProperty(value = "是否已选择")
     private boolean isChecked;
 
+    @ApiModelProperty(value = "分销员Id")
+    private String distributionId;
+
     public <T> QueryWrapper<T> queryWrapper() {
         QueryWrapper<T> queryWrapper = this.distributionQueryWrapper();
         queryWrapper.eq(CharSequenceUtil.isNotEmpty(goodsId), "goods_id", goodsId);

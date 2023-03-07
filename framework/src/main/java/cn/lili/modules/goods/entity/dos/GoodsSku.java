@@ -163,6 +163,10 @@ public class GoodsSku extends BaseEntity {
     @ApiModelProperty(value = "商品类型", required = true)
     private String goodsType;
 
+    @Max(value = 99999999, message = "数字货币=利润*系数")
+    @ApiModelProperty(value = "数字货币")
+    private Double digitalCurrency;
+
     public Double getWeight() {
         if (weight == null) {
             return 0d;

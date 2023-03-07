@@ -1,10 +1,13 @@
 package cn.lili.controller.distribution;
 
 import cn.lili.common.enums.ResultUtil;
+import cn.lili.common.vo.PageVO;
 import cn.lili.common.vo.ResultMessage;
 import cn.lili.modules.distribution.entity.dos.Distribution;
 import cn.lili.modules.distribution.entity.dos.DistributionOrder;
 import cn.lili.modules.distribution.entity.dto.DistributionApplyDTO;
+import cn.lili.modules.distribution.entity.dto.DistributionSearchParams;
+import cn.lili.modules.distribution.entity.enums.DistributionStatusEnum;
 import cn.lili.modules.distribution.entity.vos.DistributionOrderSearchParams;
 import cn.lili.modules.distribution.service.DistributionOrderService;
 import cn.lili.modules.distribution.service.DistributionService;
@@ -58,6 +61,13 @@ public class DistributionBuyerController {
         distributionService.checkDistributionSetting();
 
         return ResultUtil.data(distributionService.getDistribution());
+    }
+
+    @ApiOperation(value = "分页获取分销员")
+    @GetMapping(value = "/getByPage")
+    public ResultMessage<IPage<Distribution>> getByPage(DistributionSearchParams distributionSearchParams, PageVO page) {
+        distributionSearchParams.setDistributionStatus(DistributionStatusEnum.PASS.name());
+        return ResultUtil.data(distributionService.distributionPage(distributionSearchParams, page));
     }
 
     @ApiOperation(value = "绑定分销员")

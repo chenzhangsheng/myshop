@@ -9,6 +9,7 @@ import cn.lili.modules.distribution.entity.dto.DistributionGoodsSearchParams;
 import cn.lili.modules.distribution.entity.vos.DistributionGoodsVO;
 import cn.lili.modules.distribution.service.DistributionGoodsService;
 import cn.lili.modules.distribution.service.DistributionSelectedGoodsService;
+import com.aliyuncs.utils.StringUtils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,9 +46,19 @@ public class DistributionGoodsBuyerController {
     private DistributionSelectedGoodsService distributionSelectedGoodsService;
 
 
-    @ApiOperation(value = "获取分销商商品列表")
+    @ApiOperation(value = "获取当前用户分销商商品列表")
     @GetMapping
     public ResultMessage<IPage<DistributionGoodsVO>> distributionGoods(DistributionGoodsSearchParams distributionGoodsSearchParams) {
+        return ResultUtil.data(distributionGoodsService.goodsPage(distributionGoodsSearchParams));
+    }
+
+
+    @ApiOperation(value = "获取指定分销员商品列表")
+    @GetMapping
+    public ResultMessage<IPage<DistributionGoodsVO>> distributionGoodsById(DistributionGoodsSearchParams distributionGoodsSearchParams) {
+        if (StringUtils.isEmpty(distributionGoodsSearchParams.getDistributionId())) {
+            throw new ServiceException("分销员Id不能为空");
+        }
         return ResultUtil.data(distributionGoodsService.goodsPage(distributionGoodsSearchParams));
     }
 
