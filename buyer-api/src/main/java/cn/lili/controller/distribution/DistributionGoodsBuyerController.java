@@ -54,11 +54,13 @@ public class DistributionGoodsBuyerController {
 
 
     @ApiOperation(value = "获取指定分销员商品列表")
-    @GetMapping
-    public ResultMessage<IPage<DistributionGoodsVO>> distributionGoodsById(DistributionGoodsSearchParams distributionGoodsSearchParams) {
-        if (StringUtils.isEmpty(distributionGoodsSearchParams.getDistributionId())) {
-            throw new ServiceException("分销员Id不能为空");
-        }
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "distributionId", value = "分销员ID", required = true, dataType = "String", paramType = "path"),
+    })
+    @GetMapping(value = "/{distributionId}")
+    public ResultMessage<IPage<DistributionGoodsVO>> distributionGoodsById(@NotNull(message = "分销员Id不能为空") @PathVariable("distributionId") String distributionId) {
+        DistributionGoodsSearchParams distributionGoodsSearchParams = new DistributionGoodsSearchParams();
+        distributionGoodsSearchParams.setDistributionId(distributionId);
         return ResultUtil.data(distributionGoodsService.goodsPage(distributionGoodsSearchParams));
     }
 
